@@ -4,11 +4,12 @@ public class IceCreamTowerMinigame : MonoBehaviour
 {
     [field: SerializeField] public GameObject spawner { get; private set; }
     [field: SerializeField] public IceCreamHorizontalMover mover { get; private set; }
+    public int TowerHeight { get; private set; } = 0;
+
     [SerializeField] private GameObject IceCreamPrefab;
 
     private IceCreamPlatform cone;
     private IceCreamFallingObject iceCream;
-    private int towerHeight = 1;
 
     private void Start()
     {
@@ -21,5 +22,7 @@ public class IceCreamTowerMinigame : MonoBehaviour
 
         iceCream = obj.GetComponent<IceCreamFallingObject>();
         mover.iceCream = iceCream;
+
+        TowerHeight += 1;
     }
 }
