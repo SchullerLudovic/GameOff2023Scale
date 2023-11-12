@@ -18,10 +18,9 @@ public class IceCreamTowerMinigame : MonoBehaviour
 
     private void SpawnIceCream()
     {
-        GameObject obj = Instantiate(IceCreamPrefab, spawner.transform.position, Quaternion.identity);
-
+        GameObject obj = Instantiate(IceCreamPrefab);
         iceCream = obj.GetComponent<IceCreamFallingObject>();
-        mover.iceCream = iceCream;
+        mover.SetIceCream(iceCream);
 
         TowerHeight += 1;
     }

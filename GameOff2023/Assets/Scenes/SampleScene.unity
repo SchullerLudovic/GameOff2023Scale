@@ -533,6 +533,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2012441690900210934, guid: bd2e446269461d849bcb02e6828be819, type: 3}
+      propertyPath: m_Size.x
+      value: 0.43790334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2012441690900210934, guid: bd2e446269461d849bcb02e6828be819, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.0012917221
+      objectReference: {fileID: 0}
     - target: {fileID: 3364013012790089733, guid: bd2e446269461d849bcb02e6828be819, type: 3}
       propertyPath: m_Name
       value: Cone

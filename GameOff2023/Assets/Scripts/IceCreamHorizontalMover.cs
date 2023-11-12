@@ -4,42 +4,35 @@ public class IceCreamHorizontalMover : MonoBehaviour
 {
     [SerializeField] private IceCreamTowerMinigame minigame;
     [SerializeField] private InputReader InputReader;
-    public IceCreamFallingObject iceCream;
 
     [SerializeField] private Transform leftTransform;
     [SerializeField] private Transform rightTransform;
 
-    private Vector3 goalPosition;
+    public IceCreamFallingObject IceCream { get; private set; }
+
+    private Vector3 currentPosition;
+    private Vector3 targetPosition;
+
     private bool goLeft;
+    private float movementTimer;
+    private const float MaxTime = 2f;
+    private float currentMaxTime = 2f;
 
     private void Awake()
     {
         InputReader.ShootEvent.AddListener(HandleShoot);
-
-        goalPosition = rightTransform.position;
+        currentPosition = leftTransform.position;
+        targetPosition = rightTransform.position;
+        movementTimer = 0f;
     }
 
     private void Update()
     {
-        if (iceCream.IsFalling)
+        if (IceCream.IsFalling)
             return;
 
-        iceCream.transform.position = Vector3.Lerp(iceCream.transform.position, goalPosition, Time.deltaTime * (.5f * minigame.TowerHeight));
-
-        float distance = Vector3.Magnitude(iceCream.transform.position - goalPosition);
-        if (distance < 1 && distance > -1)
-        {
-            if(goLeft)
-            {
-                goalPosition = rightTransform.position;
-            }
-            else
-            {
-                goalPosition = leftTransform.position;
-            }
-
-            goLeft = !goLeft;
-        }
+        MoveSideways();
+        ChangeTarget();
     }
 
     private void OnDisable()
@@ -47,8 +40,46 @@ public class IceCreamHorizontalMover : MonoBehaviour
         InputReader.ShootEvent.RemoveListener(HandleShoot);
     }
 
+    public void SetIceCream(IceCreamFallingObject iceCream)
+    {
+        IceCream = iceCream;
+
+        Debug.Log(iceCream.transform.position + " - " + leftTransform.position);
+
+        IceCream.transform.position = leftTransform.position;
+        Debug.Log(iceCream.transform.position + " - " + leftTransform.position);
+    }
+
     private void HandleShoot()
     {
-        iceCream?.Fall();
+        IceCream?.Fall();
+    }
+
+    private void MoveSideways()
+    {
+        movementTimer += Time.deltaTime;
+        IceCream.transform.position = Vector3.Lerp(currentPosition, targetPosition, movementTimer / currentMaxTime);
+    }
+
+    private void ChangeTarget()
+    {
+        if (movementTimer < currentMaxTime)
+            return;
+
+        movementTimer = 0f;
+        currentMaxTime = MaxTime - (minigame.TowerHeight * 0.1f);
+
+        if (goLeft)
+        {
+            targetPosition = rightTransform.position;
+            currentPosition = leftTransform.position;
+        }
+        else
+        {
+            targetPosition = leftTransform.position;
+            currentPosition = rightTransform.position;
+        }
+
+        goLeft = !goLeft;
     }
 }
