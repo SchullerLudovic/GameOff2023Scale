@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Collider>k__BackingField: {fileID: 6551909497517552406}
-  <Renderer>k__BackingField: {fileID: 0}
+  <Renderer>k__BackingField: {fileID: 8224553628516668011}
   <IsFalling>k__BackingField: 0
 --- !u!50 &7436350006650004958
 Rigidbody2D:

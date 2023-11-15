@@ -44,10 +44,7 @@ public class IceCreamHorizontalMover : MonoBehaviour
     {
         IceCream = iceCream;
 
-        Debug.Log(iceCream.transform.position + " - " + leftTransform.position);
-
         IceCream.transform.position = leftTransform.position;
-        Debug.Log(iceCream.transform.position + " - " + leftTransform.position);
     }
 
     private void HandleShoot()
